@@ -2,12 +2,20 @@ import java.util.Scanner;
 
 public class Main {
 
+    private static final Scanner scanner = new Scanner(System.in);
+    
     public static void main(String[] args) {
-
-        Scanner sc = new Scanner(System.in);
-        int option = 0;
+        int optionSelected;
         System.out.println("----------Calculate area of shapes-----------");
-        while (option != 7) {
+        do {
+            optionsMenu();
+            optionSelected = selectOption();
+            executeOption(optionSelected);
+        } while (optionSelected != 7);
+    }
+
+
+    public static void optionsMenu(){
             System.out.println("1. Rectangle");
             System.out.println("2. Circle");
             System.out.println("3. Triangle");
@@ -16,77 +24,106 @@ public class Main {
             System.out.println("6. Sube");
             System.out.println("7. Exit");
             System.out.print("Choose an option: ");
-            option = Integer.parseInt(sc.nextLine());
+    }
 
-            switch(option){
-                case 1: {
-                    int a = 0,b = 0;
-
-                    System.out.print("Insert side a: ");
-                    a = Integer.parseInt(sc.nextLine());
-                    System.out.print("Insert side b: ");
-                    b = Integer.parseInt(sc.nextLine());
-                    int area = a * b;
-                    int per = 2 * a * b;
-                    System.out.println("Area: " + area);
-                    System.out.println("Perimeter: " + per);
-                    }
-                    break;
-                case 2: {
-                    System.out.println("Insert radius:");
-                    int r = 0;
-                    r = Integer.parseInt(sc.nextLine());
-                    int area = (int) (4 * Math.PI * Math.pow(r, 2));
-                    System.out.println("Area: " + area);
-                    int p = (int) (2 * Math.PI * r);
-                    System.out.println("Perimeter: " + p);
-                    }
-                    break;
-                case 3: {
-                    System.out.println("Insert height");
-                    int h = 0, b = 0;
-                    h = Integer.parseInt(sc.nextLine());
-                    System.out.print("Insert base");
-                    b = Integer.parseInt(sc.nextLine());
-                    int area = (int) (0.5 * (Math.sqrt((h * h) - (b * b) / 4 )* b));
-                    System.out.println("Area:" + area);
-                    int p = 2 * (h + b);
-                    System.out.println("Perimeter:" + p);
-                    }
-                    break;
-                case 4:{
-                    System.out.println("Insert side");
-                    int s = 0;
-                    s = Integer.parseInt(sc.nextLine());
-                    int area = s * s;
-                    System.out.println("Area: " + area);
-                    int p = s + s +s + s;
-                    System.out.println("Perimieter: " + p);
-                    }
-                    break;
-                case 5:{
-                    System.out.print("Insert radius: ");
-                    int r = 0;
-                    r = Integer.parseInt(sc.nextLine());
-                    int area = (int)(4 *  Math.PI * r * r);
-                    System.out.println("Area: " + area);
-                    int p = (int)(2 * Math.PI * r);
-                    System.out.println("Perimeter: " + p);
-                    }
-                    break;
-                case 6:{
-                    System.out.println("Insert side ");
-                    int s = 0;
-                    s = Integer.parseInt(sc.nextLine());
-                    int area = s * s + s * s + s * s + s * s + s * s + s * s;
-                    int p = s + s + s + s;
-                    System.out.println("Area: " + area);
-                    System.out.println("Perimeter: " + p);
-                    }
-                    break;
-                default:
-                    break;
+    private static int selectOption() {
+        while (true) {
+            try {
+                int option = Integer.parseInt(scanner.nextLine());
+                if (option >= 1 && option <= 7) {
+                    return option;
+                } else {
+                    System.out.println("Invalid option.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input, option is a number.");
             }
         }
     }
+
+    private static void executeOption(int option) {
+        switch (option) {
+            case 1 -> rectangle();
+            case 2 -> circle();
+            case 3 -> triangle();
+            case 4 -> square();
+            case 5 -> sphere();
+            case 6 -> cube();
+            case 7 -> System.out.println("Exiting...");
+            default -> System.out.println("No valid option, please select a number between 1-7.");
+        }
+    }
+
+    private static void rectangle() {
+        double width = getValueFromUser("Insert side 1: ");
+        double height = getValueFromUser("Insert side 2: ");
+        double area = width * height;
+        double perimeter = 2 * (width + height);
+        showInfoToUser(area, perimeter);
+    }
+
+    private static void circle() {
+        double radius = getValueFromUser("Insert radius: ");
+        double area = Math.PI * Math.pow(radius, 2);
+        double perimeter = 2 * Math.PI * radius;
+        showInfoToUser(area, perimeter);
+    }
+
+    private static void triangle() {
+        double base = getValueFromUser("Insert base: ");
+        double height = getValueFromUser("Insert height: ");
+        double area = 0.5 * base * height;
+        double perimeter = base + 2 * height; 
+        showInfoToUser(area, perimeter);
+    }
+
+    private static void square() {
+        double side = getValueFromUser("Insert side: ");
+        double area = side * side;
+        double perimeter = 4 * side;
+        showInfoToUser(area, perimeter);
+    }
+
+    private static void sphere() {
+        double radius = getValueFromUser("Insert radius: ");
+        double area = 4 * Math.PI * Math.pow(radius, 2);
+        double perimeter = 2 * Math.PI * radius;  
+        showInfoToUser(area, perimeter);
+    }
+
+    private static void cube() {
+        double side = getValueFromUser("Insert side: ");
+        double area = 6 * Math.pow(side, 2);
+        double perimeter = 12 * side;  
+        showInfoToUser(area, perimeter);
+    }
+
+    // function to get info from user
+    private static double getValueFromUser(String info) {
+        double valueFromUser;
+        while (true) {
+            try {
+                // get infro from user and validate that value is a double
+                System.out.print(info);
+                valueFromUser = Double.parseDouble(scanner.nextLine());
+                if (valueFromUser > 0) {
+                    return valueFromUser;
+                } else { // return error when value isn't greater than zero
+                    System.out.println("Value must be greater than zero.");
+                }
+            } catch (NumberFormatException e) {  // return error when value isn't a number
+                System.out.println("Invalid input. Please enter a number.");
+            }
+        }
+    }
+
+    // function to show the calculated value
+    private static void showInfoToUser(double area, double perimeter) {
+        System.out.printf("Area: %.2f\n", area);
+        System.out.printf("Perimeter: %.2f\n", perimeter);
+    }
+
 }
+
+
+
