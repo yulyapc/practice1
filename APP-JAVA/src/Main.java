@@ -1,4 +1,6 @@
-import dependency.inversion.DataBase;
+import dependency.inversion.Database;
+import dependency.inversion.MongoDB;
+import dependency.inversion.MySql;
 import interfaces.segregation.CheapCamera;
 import interfaces.segregation.SmartCamera;
 import liskov.substitution.Employee;
@@ -97,12 +99,17 @@ public class Main {
     }
 
     public static void testDatabase() {
-        DataBase controller = new DataBase();
-        controller.executeQuery("SELECT * FROM PRODUCTS;");
-        // Se pide migrar el controlador de MySQL a MongoDB
-        // y ejecutar las funciones de dump y poll disponibles.
-        controller.dump();
-        controller.poll();
+        // Usar MySql
+        Database dbMySql = new Database(new MySql());
+        dbMySql.executeQuery("SELECT * FROM users");
+        dbMySql.poll();
+        dbMySql.dump();
+
+        // Usar MongoDB
+        Database dbMongo = new Database(new MongoDB());
+        dbMongo.executeQuery("SELECT * FROM users");
+        dbMongo.poll();
+        dbMongo.dump();
     }
 
     public static void cameraFunction() throws Exception {
@@ -137,10 +144,10 @@ public class Main {
                     calculatePayments();
                     break;
                 case 4:
-                    testDatabase();
+                    cameraFunction();
                     break;
                 case 5:
-                    cameraFunction();
+                    testDatabase();
                     break;
                 case 6:
                     break;
