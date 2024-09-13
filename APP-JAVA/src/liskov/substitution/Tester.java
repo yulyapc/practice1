@@ -11,6 +11,7 @@ public class Tester extends Employee {
         testType = type;
     }
 
+    @Override
     public int calculatePayment() {
         return (int) (this.payment + this.payment * 0.15);
     }

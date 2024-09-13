@@ -1,6 +1,6 @@
 package liskov.substitution;
 
-public class Employee {
+public abstract class Employee {
     public final String name;
     public final int payment;
 
@@ -9,7 +9,5 @@ public class Employee {
         this.payment = payment;
     }
 
-    public int calculatePayment() {
-        return this.payment;
-    }
+    public abstract int calculatePayment(); 
 }

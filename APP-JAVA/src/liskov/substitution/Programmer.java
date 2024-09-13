@@ -1,17 +1,18 @@
 package liskov.substitution;
 
 public class Programmer extends Employee {
+    String language;
 
-    String languaje;
-    public Programmer(String name, int payment, String languaje) {
+    public Programmer(String name, int payment, String language) {
         super(name, payment);
-        this.languaje = languaje;
+        this.language = language;
     }
 
-    public void setLanguaje(String lang) {
-        this.languaje = lang;
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
+    @Override
     public int calculatePayment() {
         return (int) (this.payment + this.payment * 0.10);
     }
