@@ -1,7 +1,7 @@
 package open.close.adapters;
 
-import open.close.Instrument;
-import open.close.instruments.Piano;
+import open.close.interfaces.Instrument;
+import open.close.Piano;
 
 public class PianoAdapter implements Instrument {
     private final Piano piano;

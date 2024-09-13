@@ -12,6 +12,7 @@ import open.close.Piano;
 import open.close.adapters.GuitarAdapter;
 import open.close.adapters.PianoAdapter;
 import open.close.adapters.DrumAdapter;
+import open.close.interfaces.Instrument;
 import single.responsibility.User;
 import single.responsibility.Email;
 import single.responsibility.Password;
@@ -60,8 +61,8 @@ public class Main {
         System.out.println("No.: ");
         int no = Utils.readInt();
         System.out.println("Enter Jhon passoword to continue:");
-        String password = Utils.readString();
-        if (password.authenticate(user.getUser(), password)) {
+        String passwordN = Utils.readString();
+        if (password.authenticate(user.getUser(), passwordN)) {
             address.updateAddress(country, city, avenue, no);
             System.out.println(user);
         } else {
