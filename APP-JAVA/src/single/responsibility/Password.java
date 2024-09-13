@@ -10,4 +10,12 @@ public class Password {
     public boolean authenticate(String user, String inputPassword) {
         return this.password.equals(inputPassword);
     }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

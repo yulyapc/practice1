@@ -1,7 +1,7 @@
 package open.close.adapters;
 
-import open.close.Instrument;
-import open.close.instruments.Drum;
+import open.close.interfaces.Instrument;
+import open.close.Drum;
 
 public class DrumAdapter implements Instrument {
     private final Drum drum;

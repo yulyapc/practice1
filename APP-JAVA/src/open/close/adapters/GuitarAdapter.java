@@ -1,7 +1,7 @@
 package open.close.adapters;
 
-import open.close.Instrument;
-import open.close.instruments.Guitar;
+import open.close.interfaces.Instrument;
+import open.close.Guitar;
 
 public class GuitarAdapter implements Instrument {
     private final Guitar guitar;
