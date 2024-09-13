@@ -1,19 +1,19 @@
 package open.close.adapters;
 
 import open.close.Instrument;
-import open.close.instruments.Guitar;
+import open.close.instruments.Drum;
 
-public class GuitarAdapter implements Instrument {
-    private final Guitar guitar;
+public class DrumAdapter implements Instrument {
+    private final Drum drum;
 
-    public GuitarAdapter(Guitar guitar) {
-        this.guitar = guitar;
+    public DrumAdapter(Drum drum) {
+        this.drum = drum;
     }
 
     @Override
     public void playNotes(int n) {
         for (int i = 0; i < n; i++) {
-            guitar.play();
+            drum.play();
         }
     }
 }
