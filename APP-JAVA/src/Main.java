@@ -89,11 +89,12 @@ public class Main {
     public static void calculatePayments() {
         Tester[] testers = new Tester[]{
             new Tester("Joan", 1000),
-            new Tester("Carmen", 1000)};
+            new Tester("Carment", 1000)};
         Programmer[] programmers = new Programmer[]{
                 new Programmer("Aida", 1000, "C#"),
                 new Programmer("Julia", 1000, "Java")};
 
+        // Calcular el pago total de todos los empleados
         List<Employee> employees = new ArrayList<>();
         employees.addAll(Arrays.asList(testers));
         employees.addAll(Arrays.asList(programmers));
