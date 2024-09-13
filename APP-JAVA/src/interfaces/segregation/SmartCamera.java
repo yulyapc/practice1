@@ -1,6 +1,6 @@
 package interfaces.segregation;
 
-public class SmartCamera implements ICamera {
+public class SmartCamera implements IAdvancedCamera {
     @Override
     public void detectMovement() {
         System.out.println("Movement detected");
@@ -8,7 +8,7 @@ public class SmartCamera implements ICamera {
 
     @Override
     public void termalDetection() {
-        System.out.println("Termal detectton");
+        System.out.println("Thermal detection");
     }
 
     @Override

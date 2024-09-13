@@ -9,7 +9,13 @@ import liskov.substitution.Tester;
 import open.close.Drum;
 import open.close.Guitar;
 import open.close.Piano;
+import open.close.adapters.GuitarAdapter;
+import open.close.adapters.PianoAdapter;
+import open.close.adapters.DrumAdapter;
 import single.responsibility.User;
+import single.responsibility.Email;
+import single.responsibility.Password;
+import single.responsibility.Address;
 import utils.Utils;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,17 +36,19 @@ public class Main {
     }
 
     public static void updateUser() {
-        User user = new User();
-        user.setFirstName("Jhon");
-        user.setLastName("Doe");
-        user.setEmail("jhon.doe@mail.com");
-        user.setUser("jhon.doe");
-        user.setPassword("123");
+        // Crear usuario
+        User user = new User("John", "Doe", "jhon.doe", "jhon.doe@mail.com");
 
-        user.setCountry("USA");
-        user.setCity("Pasadena");
-        user.setStreet("5th avenue");
-        user.setNo(20);
+        // Actualizar dirección
+        Address address = new Address();
+        address.updateAddress("USA", "Pasadena", "5th avenue", 20);
+
+        // Crear contraseña
+        Password password = new Password("123");
+
+        Email email = new Email();
+
+        password.setPassword("123");
 
         System.out.println("Update address for Jhon Doe");
         System.out.println("Country: ");
@@ -53,8 +61,8 @@ public class Main {
         int no = Utils.readInt();
         System.out.println("Enter Jhon passoword to continue:");
         String password = Utils.readString();
-        if (user.authenticate(user.getUser(), password)) {
-            user.updateAddress(country, city, avenue, no);
+        if (password.authenticate(user.getUser(), password)) {
+            address.updateAddress(country, city, avenue, no);
             System.out.println(user);
         } else {
             System.out.println("Wrong password");
@@ -63,38 +71,40 @@ public class Main {
     }
 
     public static void playSymphony() {
-        Guitar guitar = new Guitar();
-        Piano piano = new Piano();
-        Drum drum = new Drum();
-        int[] notes = new int[]{2,3,4};
-        for (int i = 0; i < notes.length; i++) {
-            // Reemplazar este segmento con open close
-            // Se debe lograr que cada instrumento toque las notas
-            // pero sin modificar el cuerpo de las clases
-            for (int a = 0; a < notes[i]; a++) {
-                guitar.play();
-                piano.play();
-                drum.play();
+
+        List<Instrument> instruments = new ArrayList<>();
+        instruments.add(new GuitarAdapter(new Guitar()));
+        instruments.add(new PianoAdapter(new Piano()));
+        instruments.add(new DrumAdapter(new Drum()));
+
+        int[] notes = new int[]{2, 3, 4};
+
+        for (int note : notes) {
+            for (Instrument instrument : instruments) {
+                instrument.playNotes(note);
             }
         }
     }
 
     public static void calculatePayments() {
         Tester[] testers = new Tester[]{
-                new Tester("Joan", 1000),
-                new Tester("Carment", 1000)};
+            new Tester("Joan", 1000),
+            new Tester("Carment", 1000)};
         Programmer[] programmers = new Programmer[]{
                 new Programmer("Aida", 1000, "C#"),
                 new Programmer("Julia", 1000, "Java")};
+
         // Calcular el pago total de todos los empleados
         List<Employee> employees = new ArrayList<>();
         employees.addAll(Arrays.asList(testers));
         employees.addAll(Arrays.asList(programmers));
+
         int totalPayment = 0;
         for (Employee emp : employees) {
             totalPayment += emp.calculatePayment();
         }
-        // El resultado no es el esperado puesto que esta devolviendo el payment de empleados.
+
+        // Mostramos el pago total
         System.out.println("Total payment employees: " + totalPayment);
     }
 
@@ -118,12 +128,11 @@ public class Main {
         camera.faceRecognition();
         camera.recorVideo();
         camera.zoomIn();
-        // Modificar esta seccion para evitar el acceso a funciones no disponibles.
+        
         CheapCamera cheapCam = new CheapCamera();
-        cheapCam.detectMovement();
-        cheapCam.faceRecognition();
-        camera.recorVideo();
-        camera.zoomIn();
+        cheapCam.takePhoto();
+        cheapCam.recorVideo();
+
     }
 
     public static void handleMenu() throws Exception {
